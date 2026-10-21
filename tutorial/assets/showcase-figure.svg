@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="240" viewBox="0 0 640 240" role="img" aria-labelledby="title desc">
+  <title id="title">Research observations</title>
+  <desc id="desc">A sample line chart showing a gradual increase over eight steps.</desc>
+  <rect width="640" height="240" fill="#f8f8f8"/>
+  <g stroke="#dddddd" stroke-width="1">
+    <path d="M60 60H600M60 100H600M60 140H600"/>
+  </g>
+  <path d="M60 35V190H600" fill="none" stroke="#555555" stroke-width="1.5"/>
+  <path d="M85 165L155 146L225 151L295 120L365 104L435 82L505 68L575 48" fill="none" stroke="#2e67d3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#2e67d3">
+    <circle cx="85" cy="165" r="4"/><circle cx="155" cy="146" r="4"/>
+    <circle cx="225" cy="151" r="4"/><circle cx="295" cy="120" r="4"/>
+    <circle cx="365" cy="104" r="4"/><circle cx="435" cy="82" r="4"/>
+    <circle cx="505" cy="68" r="4"/><circle cx="575" cy="48" r="4"/>
+  </g>
+  <g fill="#555555" font-family="Georgia, serif" font-size="13">
+    <text x="45" y="194" text-anchor="end">0</text>
+    <text x="45" y="144" text-anchor="end">0.3</text>
+    <text x="45" y="104" text-anchor="end">0.6</text>
+    <text x="45" y="64" text-anchor="end">0.9</text>
+    <text x="85" y="211" text-anchor="middle">1</text>
+    <text x="295" y="211" text-anchor="middle">4</text>
+    <text x="575" y="211" text-anchor="middle">8</text>
+    <text x="330" y="231" text-anchor="middle">Step</text>
+    <text x="18" y="115" text-anchor="middle" transform="rotate(-90 18 115)">Score</text>
+  </g>
+</svg>

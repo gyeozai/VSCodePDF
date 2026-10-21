@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="560" viewBox="0 0 360 560" role="img" aria-labelledby="title desc">
+  <title id="title">Retrieval pipeline</title>
+  <desc id="desc">A vertical flow diagram: query, retriever, reranker, generator and answer, connected by arrows.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#555555"/>
+    </marker>
+  </defs>
+  <rect width="360" height="560" fill="#f8f8f8"/>
+  <g fill="#ffffff" stroke="#555555" stroke-width="1.5">
+    <rect x="80" y="30" width="200" height="56" rx="10"/>
+    <rect x="80" y="134" width="200" height="56" rx="4"/>
+    <rect x="80" y="238" width="200" height="56" rx="4"/>
+    <rect x="80" y="342" width="200" height="56" rx="4"/>
+    <rect x="80" y="446" width="200" height="56" rx="10"/>
+  </g>
+  <g fill="none" stroke="#555555" stroke-width="1.5" marker-end="url(#arrow)">
+    <path d="M180 86V130"/>
+    <path d="M180 190V234"/>
+    <path d="M180 294V338"/>
+    <path d="M180 398V442"/>
+  </g>
+  <g fill="#2e67d3">
+    <rect x="80" y="134" width="6" height="56"/>
+    <rect x="80" y="238" width="6" height="56"/>
+    <rect x="80" y="342" width="6" height="56"/>
+  </g>
+  <g fill="#333333" font-family="Georgia, serif" font-size="18" text-anchor="middle">
+    <text x="180" y="64">Query</text>
+    <text x="180" y="168">Retriever</text>
+    <text x="180" y="272">Reranker</text>
+    <text x="180" y="376">Generator</text>
+    <text x="180" y="480">Answer</text>
+  </g>
+  <g fill="#777777" font-family="Georgia, serif" font-size="13" text-anchor="start">
+    <text x="196" y="116">top-50</text>
+    <text x="196" y="220">top-5</text>
+    <text x="196" y="324">grounded</text>
+  </g>
+</svg>

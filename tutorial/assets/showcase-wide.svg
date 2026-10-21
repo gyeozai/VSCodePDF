@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">Latency by stage</title>
+  <desc id="desc">A wide horizontal bar chart comparing the latency of four pipeline stages for two systems.</desc>
+  <rect width="1200" height="300" fill="#f8f8f8"/>
+  <g stroke="#dddddd" stroke-width="1">
+    <path d="M300 40V250M520 40V250M740 40V250M960 40V250"/>
+  </g>
+  <path d="M190 40V250H1160" fill="none" stroke="#555555" stroke-width="1.5"/>
+  <g fill="#2e67d3">
+    <rect x="190" y="56" width="420" height="16"/>
+    <rect x="190" y="106" width="610" height="16"/>
+    <rect x="190" y="156" width="250" height="16"/>
+    <rect x="190" y="206" width="760" height="16"/>
+  </g>
+  <g fill="#9bb7e8">
+    <rect x="190" y="74" width="360" height="16"/>
+    <rect x="190" y="124" width="470" height="16"/>
+    <rect x="190" y="174" width="230" height="16"/>
+    <rect x="190" y="224" width="540" height="16"/>
+  </g>
+  <g fill="#555555" font-family="Georgia, serif" font-size="17">
+    <text x="176" y="79" text-anchor="end">Retrieve</text>
+    <text x="176" y="129" text-anchor="end">Rerank</text>
+    <text x="176" y="179" text-anchor="end">Filter</text>
+    <text x="176" y="229" text-anchor="end">Generate</text>
+    <text x="300" y="274" text-anchor="middle">100 ms</text>
+    <text x="520" y="274" text-anchor="middle">200 ms</text>
+    <text x="740" y="274" text-anchor="middle">300 ms</text>
+    <text x="960" y="274" text-anchor="middle">400 ms</text>
+    <rect x="1000" y="52" width="14" height="14" fill="#2e67d3"/>
+    <text x="1022" y="64">Baseline</text>
+    <rect x="1000" y="76" width="14" height="14" fill="#9bb7e8"/>
+    <text x="1022" y="88">Proposed</text>
+  </g>
+</svg>

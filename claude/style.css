@@ -1,0 +1,1027 @@
+/*
+ * Claude PDF theme for manuth.markdown-converter.
+ * Adapted from Tsumugii24/claude-typora-theme for rendered Markdown HTML.
+ * Target: A4 PDF, normal margin, print-oriented rendered state.
+ */
+
+@page {
+    size: A4;
+    /* Normal margins: one inch on every side; do not add body padding in print. */
+    margin: 1in;
+}
+
+/*
+ * Noto Serif/Sans TC fall back to their Regular instance, which prints visibly lighter than
+ * the Latin Anthropic faces. These aliases use the Medium instance for CJK text (Bold for bold
+ * text); when a font is missing, the stack falls through to the next family.
+ */
+@font-face {
+    font-family: "Claude CJK Serif";
+    font-weight: 400;
+    src: local("Noto Serif TC Medium"), local("NotoSerifTC-Medium"),
+        local("Noto Serif CJK TC Medium"), local("NotoSerifCJKtc-Medium");
+    unicode-range: U+2E80-2FFF, U+3000-33FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF,
+        U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
+}
+
+@font-face {
+    font-family: "Claude CJK Serif";
+    font-weight: 700;
+    src: local("Noto Serif TC Bold"), local("NotoSerifTC-Bold"),
+        local("Noto Serif CJK TC Bold"), local("NotoSerifCJKtc-Bold");
+    unicode-range: U+2E80-2FFF, U+3000-33FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF,
+        U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
+}
+
+@font-face {
+    font-family: "Claude CJK Sans";
+    font-weight: 400;
+    src: local("Noto Sans TC Medium"), local("NotoSansTC-Medium"),
+        local("Noto Sans CJK TC Medium"), local("NotoSansCJKtc-Medium");
+    unicode-range: U+2E80-2FFF, U+3000-33FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF,
+        U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
+}
+
+@font-face {
+    font-family: "Claude CJK Sans";
+    font-weight: 700;
+    src: local("Noto Sans TC Bold"), local("NotoSansTC-Bold"),
+        local("Noto Sans CJK TC Bold"), local("NotoSansCJKtc-Bold");
+    unicode-range: U+2E80-2FFF, U+3000-33FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF,
+        U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
+}
+
+/*
+ * The converter inlines katex.min.css, whose relative fonts/ URLs cannot load. These faces
+ * come after it, so Chromium uses the KaTeX fonts installed (as TTF) in WSL's
+ * ~/.local/share/fonts/katex directly.
+ */
+@font-face { font-family: KaTeX_AMS; font-style: normal; font-weight: 400; src: local("KaTeX_AMS-Regular"); }
+@font-face { font-family: KaTeX_Caligraphic; font-style: normal; font-weight: 700; src: local("KaTeX_Caligraphic-Bold"); }
+@font-face { font-family: KaTeX_Caligraphic; font-style: normal; font-weight: 400; src: local("KaTeX_Caligraphic-Regular"); }
+@font-face { font-family: KaTeX_Fraktur; font-style: normal; font-weight: 700; src: local("KaTeX_Fraktur-Bold"); }
+@font-face { font-family: KaTeX_Fraktur; font-style: normal; font-weight: 400; src: local("KaTeX_Fraktur-Regular"); }
+@font-face { font-family: KaTeX_Main; font-style: normal; font-weight: 700; src: local("KaTeX_Main-Bold"); }
+@font-face { font-family: KaTeX_Main; font-style: italic; font-weight: 700; src: local("KaTeX_Main-BoldItalic"); }
+@font-face { font-family: KaTeX_Main; font-style: italic; font-weight: 400; src: local("KaTeX_Main-Italic"); }
+@font-face { font-family: KaTeX_Main; font-style: normal; font-weight: 400; src: local("KaTeX_Main-Regular"); }
+@font-face { font-family: KaTeX_Math; font-style: italic; font-weight: 700; src: local("KaTeX_Math-BoldItalic"); }
+@font-face { font-family: KaTeX_Math; font-style: italic; font-weight: 400; src: local("KaTeX_Math-Italic"); }
+@font-face { font-family: KaTeX_SansSerif; font-style: normal; font-weight: 700; src: local("KaTeX_SansSerif-Bold"); }
+@font-face { font-family: KaTeX_SansSerif; font-style: italic; font-weight: 400; src: local("KaTeX_SansSerif-Italic"); }
+@font-face { font-family: KaTeX_SansSerif; font-style: normal; font-weight: 400; src: local("KaTeX_SansSerif-Regular"); }
+@font-face { font-family: KaTeX_Script; font-style: normal; font-weight: 400; src: local("KaTeX_Script-Regular"); }
+@font-face { font-family: KaTeX_Size1; font-style: normal; font-weight: 400; src: local("KaTeX_Size1-Regular"); }
+@font-face { font-family: KaTeX_Size2; font-style: normal; font-weight: 400; src: local("KaTeX_Size2-Regular"); }
+@font-face { font-family: KaTeX_Size3; font-style: normal; font-weight: 400; src: local("KaTeX_Size3-Regular"); }
+@font-face { font-family: KaTeX_Size4; font-style: normal; font-weight: 400; src: local("KaTeX_Size4-Regular"); }
+@font-face { font-family: KaTeX_Typewriter; font-style: normal; font-weight: 400; src: local("KaTeX_Typewriter-Regular"); }
+
+:root {
+    color-scheme: light;
+
+    --bg-color: transparent;
+    --hover-color: #f0eee6;
+    --font-color: #141413;
+    --sidebar-font-color: #3d3d3a;
+    --border-color: #1f1e1d;
+    --border-color-15: #1f1e1d26;
+    --border-color-30: #1f1e1d4d;
+    --pre-bg-color: #f2f0e8;
+    --pre-border-color: #1f1e1d17;
+    --pre-inputfont-color: #73726c;
+    --hr-color: #1f1e1d33;
+    /* Opaque table rules: Chromium paints some rules twice (under spanning cells, between
+       row groups), which would darken a translucent colour. */
+    --table-th-border: #848383;
+    --table-td-border: #dbdbdb;
+    --code-bg-color: #3d3d3a12;
+    --code-font-color: #8a2424;
+    --code-border: #1f1e1d26;
+    --quote-font-color: #3d3d3a;
+    --quote-border: #d7d2c4;
+    --logo-color: #d97757;
+    --accent-text-color: #b5532f;
+    --link-color: #141413;
+    --link-underline-color: #1f1e1d66;
+    --link-hover-color: #d97757;
+    --mark-bg-color: #d977572e;
+    --selection-bg: #d9775740;
+    --alert-bg: rgb(255 255 255 / 50%);
+    --alert-bg-soft: rgb(255 255 255 / 24%);
+    --alert-border: rgb(31 30 29 / 12%);
+    --kbd-bg: #ffffff80;
+    --kbd-border: #1f1e1d4d;
+    --keep-with-next: 3.75rem;
+
+    --font-serif: "Anthropic Serif Web Text", "Claude CJK Serif", "Noto Serif TC", "Noto Serif SC", "Source Han Serif TC", "PMingLiU", Georgia, serif;
+    --font-sans: "Anthropic Sans Web Text", "Claude CJK Sans", "Noto Sans TC", "Noto Sans SC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+    /* Code keeps Regular CJK: the Medium alias outweighs the light monospace Latin. */
+    --font-mono: "Anthropic Mono Variable", "Cascadia Code", Consolas, "Liberation Mono", "Noto Sans TC", monospace;
+    --font-weight: 400;
+    --font-strong: 700;
+    --pre-inputfont-weight: 430;
+
+    --markdown-font-family: var(--font-serif);
+    --markdown-font-size: 16px;
+    --markdown-line-height: 1.7;
+    --vscode-font-family: var(--font-sans);
+    --vscode-editor-font-family: var(--font-mono);
+    --vscode-editor-background: var(--bg-color);
+    --vscode-editor-foreground: var(--font-color);
+    --vscode-textPreformat-foreground: var(--code-font-color);
+    --vscode-textBlockQuote-background: transparent;
+    --vscode-textBlockQuote-border: var(--quote-border);
+    --vscode-textLink-foreground: var(--link-color);
+    --vscode-textLink-activeForeground: var(--link-hover-color);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--font-color);
+    font-size: 16px;
+    line-height: 1.7;
+    tab-size: 4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    text-rendering: optimizeLegibility;
+}
+
+body,
+body.vscode-body,
+body.markdown-body {
+    width: 100%;
+    max-width: 744px;
+    margin: 0 auto !important;
+    padding: 1.25rem 1.25rem 4rem !important;
+    background: var(--bg-color) !important;
+    color: var(--font-color) !important;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: var(--font-weight);
+    line-height: inherit;
+    letter-spacing: 0;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+    overflow-wrap: break-word;
+}
+
+::selection {
+    background-color: var(--selection-bg);
+    color: var(--font-color);
+}
+
+/* VS Code's parser can put an empty mermaid span and a marker div before the first block. */
+body > *:first-child,
+body > #markdown-mermaid:first-child + *,
+body > #markdown-mermaid:first-child + .code-line:empty + *,
+body > .code-line:empty:first-child + * {
+    margin-top: 0 !important;
+}
+
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+p {
+    margin: 0 0 0.9rem;
+    padding: 0;
+}
+
+/* Optional title block: <p class="subtitle|author|date"> after the document title. */
+.subtitle {
+    margin: 0 0 0.6rem;
+    color: var(--sidebar-font-color);
+    font-size: 1.08rem;
+    line-height: 1.55;
+}
+
+.author,
+.date {
+    margin: 0;
+    color: var(--pre-inputfont-color);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    line-height: 1.65;
+}
+
+strong,
+b {
+    color: inherit;
+    font-weight: var(--font-strong);
+}
+
+em,
+i {
+    font-style: italic;
+}
+
+mark {
+    padding: 0.04em 0.12em;
+    border-radius: 0.2em;
+    background-color: var(--mark-bg-color);
+    color: inherit;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+u {
+    text-decoration: underline solid var(--logo-color);
+    text-underline-offset: 0.18em;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: underline;
+    text-decoration-color: var(--link-underline-color);
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 0.06em;
+}
+
+a:hover,
+a:focus {
+    color: var(--link-hover-color);
+    text-decoration-color: var(--link-hover-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--font-color);
+    font-family: var(--font-serif);
+    letter-spacing: 0;
+    padding: 0;
+    border: 0;
+    break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+h1 {
+    font-size: 1.75rem;
+    line-height: 1.28;
+    font-weight: var(--font-strong);
+    margin: 2.2rem 0 0.75rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    font-weight: var(--font-strong);
+    margin: 2rem 0 0.7rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border-color-15);
+}
+
+h3 {
+    font-size: 1.12rem;
+    line-height: 1.45;
+    font-weight: var(--font-strong);
+    margin: 1.6rem 0 0.45rem;
+}
+
+h4 {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: var(--font-strong);
+    margin: 1.35rem 0 0.35rem;
+}
+
+/* The lowest levels keep the heading serif; smaller type and softer colour set them apart. */
+h5,
+h6 {
+    color: var(--sidebar-font-color);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: var(--font-strong);
+    margin: 1.2rem 0 0.3rem;
+}
+
+h6 {
+    color: var(--pre-inputfont-color);
+    font-size: 0.8rem;
+}
+
+h1 + *,
+h2 + *,
+h3 + *,
+h4 + *,
+h5 + *,
+h6 + * {
+    break-before: avoid;
+    page-break-before: avoid;
+}
+
+hr {
+    height: 1px;
+    margin: 1.6rem 0;
+    border: 0;
+    background-color: var(--hr-color);
+}
+
+ul,
+ol {
+    margin: 0 0 0.9rem;
+    padding: 0 0 0 1.55em;
+    line-height: inherit;
+}
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+    margin: 0.3rem 0 0;
+    padding: 0 0 0 1.4em;
+}
+
+li {
+    margin: 0 0 0.3rem;
+    padding-left: 0.22rem;
+}
+
+/* Loose lists: keep items further apart than the paragraphs inside them. */
+li:has(> p) {
+    margin-bottom: 0.65rem;
+}
+
+li > p {
+    margin: 0;
+    padding: 0;
+}
+
+li > p + p,
+li > p + blockquote,
+li > p + pre,
+li > p + table {
+    margin-top: 0.45em;
+}
+
+li > :last-child {
+    margin-bottom: 0;
+}
+
+li::marker {
+    color: var(--sidebar-font-color);
+}
+
+.task-list-item,
+li.task-list-item {
+    list-style: none;
+    position: relative;
+}
+
+/* The converter's checkbox plugin emits plain li elements with labels. */
+li:has(> input[type="checkbox"]),
+li:has(> p > input[type="checkbox"]) {
+    list-style: none;
+}
+
+input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+    margin: 0 0.45rem 0 -1.3rem;
+    vertical-align: -0.08rem;
+    accent-color: var(--logo-color);
+}
+
+dl {
+    margin: 0 0 0.9rem;
+}
+
+dt {
+    margin: 0.55rem 0 0.1rem;
+    font-weight: var(--font-strong);
+}
+
+dt:first-child {
+    margin-top: 0;
+}
+
+dd {
+    margin: 0 0 0.2rem 1.55em;
+}
+
+blockquote {
+    margin: 0.15rem 0 0.9rem;
+    padding: 0.05rem 0 0.05rem 0.85rem;
+    border-left: 4px solid var(--quote-border);
+    background: transparent;
+    color: var(--quote-font-color);
+}
+
+blockquote > :first-child {
+    margin-top: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+blockquote p {
+    padding: 0;
+}
+
+blockquote ul,
+blockquote ol {
+    margin: 0 0 0.75rem;
+    padding: 0 0 0 1.25rem;
+}
+
+samp {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+}
+
+code,
+tt {
+    padding: 1px 0.25rem;
+    border: 0.5px solid var(--code-border);
+    border-radius: 0.35rem;
+    background-color: var(--code-bg-color);
+    color: var(--code-font-color);
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    line-height: inherit;
+}
+
+pre,
+pre:not(.hljs),
+pre.hljs {
+    position: relative;
+    margin: 0.35rem 0 1.1rem;
+    padding: 0.85rem 0.95rem;
+    border: 0.5px solid var(--pre-border-color);
+    border-radius: 0.5rem;
+    background-color: var(--pre-bg-color);
+    color: var(--font-color);
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    overflow: visible;
+    tab-size: 4;
+    orphans: 3;
+    widows: 3;
+}
+
+pre code,
+pre.hljs code > div {
+    display: block;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: inherit;
+    overflow: visible;
+    break-inside: auto;
+    page-break-inside: auto;
+}
+
+/* Highlighting may be attached to either pre or code by the renderer. */
+pre.hljs {
+    background: var(--pre-bg-color) !important;
+}
+
+pre code,
+pre code.hljs {
+    background: transparent !important;
+    color: var(--font-color) !important;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-doctag,
+.hljs-meta,
+.vscode-light .hljs-comment,
+.vscode-light .hljs-quote,
+.vscode-light .hljs-meta {
+    color: #6e7687 !important;
+}
+
+.hljs-keyword,
+.hljs-meta-keyword,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-symbol,
+.hljs-name,
+.vscode-light .hljs-keyword,
+.vscode-light .hljs-built_in,
+.vscode-light .hljs-literal,
+.vscode-light .hljs-symbol,
+.vscode-light .hljs-name {
+    color: #8100c2 !important;
+}
+
+.hljs-string,
+.hljs-meta-string,
+.hljs-template-tag,
+.hljs-addition,
+.vscode-light .hljs-string,
+.vscode-light .hljs-meta-string,
+.vscode-light .hljs-addition {
+    color: #008000 !important;
+}
+
+.hljs-number,
+.hljs-regexp,
+.vscode-light .hljs-number,
+.vscode-light .hljs-regexp {
+    color: #008080 !important;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-function,
+.vscode-light .hljs-title,
+.vscode-light .hljs-section,
+.vscode-light .hljs-function {
+    color: #0051c2 !important;
+}
+
+.hljs-tag,
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-selector-tag,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-link,
+.vscode-light .hljs-tag,
+.vscode-light .hljs-attr,
+.vscode-light .hljs-attribute,
+.vscode-light .hljs-property,
+.vscode-light .hljs-selector-tag,
+.vscode-light .hljs-selector-class,
+.vscode-light .hljs-selector-id,
+.vscode-light .hljs-link {
+    color: #b80a18 !important;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-bullet,
+.hljs-type,
+.hljs-class,
+.vscode-light .hljs-variable,
+.vscode-light .hljs-template-variable,
+.vscode-light .hljs-bullet,
+.vscode-light .hljs-type {
+    color: #b34a00 !important;
+}
+
+.hljs-subst,
+.hljs-params,
+.hljs-formula {
+    color: var(--font-color) !important;
+}
+
+.hljs-addition {
+    background: #0080000d !important;
+}
+
+.hljs-deletion,
+.vscode-light .hljs-deletion {
+    color: var(--code-font-color) !important;
+    background: #d977571f !important;
+}
+
+table {
+    width: 100%;
+    margin: 0.35rem 0 1.35rem;
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+    page-break-inside: auto;
+}
+
+/* Short tables stay on one page; longer ones still break between rows. */
+table:not(:has(tr:nth-child(9))) {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+caption {
+    caption-side: top;
+    padding: 0 0 0.55rem;
+    color: var(--sidebar-font-color);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+thead {
+    display: table-header-group;
+    border-bottom: 1px solid var(--table-th-border);
+}
+
+tbody {
+    display: table-row-group;
+}
+
+tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+th,
+td {
+    padding: 0.45rem 0.75rem 0.45rem 1px;
+    border: 0;
+    border-bottom: 1px solid var(--table-td-border);
+    text-align: left;
+    vertical-align: top;
+    /* Preserve ordinary words without letting long tokens widen the PDF. */
+    max-width: 20ch;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+/* :root outranks VS Code's .vscode-light th/td rules, which recolour table borders. */
+:root th,
+:root td {
+    border-bottom-color: var(--table-td-border);
+}
+
+:root thead th {
+    border-bottom-color: var(--table-th-border);
+}
+
+/* Tables with eight or more columns use smaller type and gaps to stay inside the text block. */
+table:has(tr > :nth-child(8)) {
+    font-size: 0.8rem;
+}
+
+table:has(tr > :nth-child(8)) :is(th, td):not(:last-child) {
+    padding-right: 0.55rem;
+}
+
+th :is(a, code),
+td :is(a, code) {
+    overflow-wrap: anywhere;
+}
+
+th {
+    color: var(--font-color);
+    font-weight: var(--font-strong);
+}
+
+td {
+    color: var(--font-color);
+    font-weight: var(--font-weight);
+}
+
+th:last-child,
+td:last-child {
+    padding-right: 0;
+}
+
+img,
+svg:not(.katex svg),
+video,
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+figure {
+    display: block;
+    margin: 1rem auto 1.2rem;
+    text-align: center;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+p > img {
+    vertical-align: middle;
+}
+
+figcaption {
+    margin-top: 0.5rem;
+    color: var(--sidebar-font-color);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+p.katex-block {
+    margin: 0.8rem 0 1rem;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.katex-block > .katex-display {
+    margin: 0;
+}
+
+/* :root outranks VS Code's .vscode-light kbd rule. */
+:root kbd {
+    padding: 1px 0.3rem;
+    border: 1px solid var(--kbd-border);
+    border-radius: 4px;
+    background-color: var(--kbd-bg);
+    box-shadow: inset 0 -1px 0 var(--border-color-15);
+    color: var(--font-color);
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    vertical-align: middle;
+}
+
+sup,
+sub {
+    font-size: 0.75em;
+    line-height: 0;
+}
+
+/* A word joiner keeps a superscript or subscript, such as a footnote mark after Chinese
+   text, from starting a new line apart from the word it belongs to. */
+sup::before,
+sub::before {
+    content: "\2060";
+}
+
+.footnote-ref {
+    color: var(--accent-text-color);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 0.75em;
+    font-weight: 500;
+    line-height: 0;
+    vertical-align: super;
+}
+
+/* markdown-it can put the reference link inside an existing sup. */
+sup .footnote-ref {
+    font-size: 1em;
+    vertical-align: baseline;
+}
+
+.footnote-ref a,
+a.footnote-ref,
+.footnote-backref,
+.footnotes a[href^="#fnref"] {
+    color: var(--accent-text-color);
+    text-decoration: none;
+}
+
+.footnotes,
+section.footnotes {
+    margin: 1.5rem 0 0;
+    padding: 0.75rem 0 0;
+    border-top: 1px solid var(--border-color-15);
+    color: var(--sidebar-font-color);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.footnotes ol {
+    margin-bottom: 0;
+}
+
+.footnotes li {
+    margin-bottom: 0.25rem;
+}
+
+/* Without the converter's TOC renderer, [[toc]] prints a bare "<>"; hide that fallback. */
+toc,
+p:has(> toc:only-child) {
+    display: none;
+}
+
+.toc,
+.markdown-converter-toc,
+.table-of-contents,
+nav.toc,
+.md-toc,
+.markdown-toc {
+    position: relative;
+    margin: 0.5rem 0 1.5rem;
+    padding: 0.1rem 0 0.1rem 1rem;
+    border-left: 2px solid var(--border-color-15);
+    color: var(--sidebar-font-color);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+:is(.toc, .markdown-converter-toc, .table-of-contents, .md-toc, .markdown-toc) :is(ul, ol) {
+    margin: 0;
+    padding-left: 1.1em;
+    list-style: none;
+}
+
+:is(.toc, .markdown-converter-toc, .table-of-contents, .md-toc, .markdown-toc) > :is(ul, ol) {
+    padding-left: 0;
+}
+
+:is(.toc, .markdown-converter-toc, .table-of-contents, .md-toc, .markdown-toc) li {
+    margin: 0.1rem 0;
+    padding-left: 0;
+}
+
+.toc a,
+.markdown-converter-toc a,
+.table-of-contents a,
+nav.toc a,
+.md-toc a,
+.markdown-toc a {
+    color: var(--sidebar-font-color);
+    text-decoration: none;
+}
+
+.markdown-alert,
+.alert,
+blockquote[class*="alert"] {
+    margin: 0.3rem 0 0.9rem;
+    padding: 0.72rem 0.9rem 0.78rem 1rem;
+    border: 1px solid var(--alert-border);
+    border-left: 3px solid var(--logo-color);
+    border-radius: 8px;
+    background: linear-gradient(180deg, var(--alert-bg), var(--alert-bg-soft)),
+        linear-gradient(90deg, rgb(217 119 87 / 10%), transparent 32%);
+    color: var(--font-color);
+}
+
+.markdown-alert-title,
+.alert-title {
+    margin: 0 0 0.35rem;
+    color: #d97757;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.markdown-alert p,
+.alert p {
+    margin: 0.35rem 0 0;
+    padding: 0;
+    line-height: 1.65;
+}
+
+details {
+    margin: 0.4rem 0 1rem;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid var(--border-color-15);
+    border-radius: 8px;
+    background: var(--alert-bg-soft);
+}
+
+details > :last-child {
+    margin-bottom: 0;
+}
+
+summary {
+    cursor: default;
+    color: var(--sidebar-font-color);
+    font-family: var(--font-sans);
+    font-weight: 700;
+}
+
+details[open] > summary {
+    margin-bottom: 0.35rem;
+}
+
+.page-break {
+    display: block;
+    break-after: page;
+    page-break-after: always;
+}
+
+.no-page-break,
+.keep-together {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+pre,
+blockquote,
+figure,
+img,
+table {
+    max-width: 100%;
+}
+
+p,
+li {
+    widows: 2;
+    orphans: 2;
+}
+
+@media print {
+    html {
+        background: var(--bg-color) !important;
+    }
+
+    body,
+    body.vscode-body,
+    body.markdown-body {
+        width: auto;
+        max-width: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: var(--bg-color) !important;
+    }
+
+    ul,
+    ol {
+        display: block;
+    }
+
+    /* VS Code's parser adds empty source-map divs before raw HTML blocks; they only add break points. */
+    div.code-line:empty {
+        display: none;
+    }
+
+    /* Margins survive a forced break; start the new page at the top margin like other pages. */
+    .page-break + * {
+        margin-top: 0 !important;
+    }
+
+    /*
+     * The converter's Chromium ignores break-after: avoid. Each heading therefore carries an
+     * invisible block that reserves room for the following lines; as headings cannot be split,
+     * a heading moves to the next page whenever that room is missing.
+     */
+    h1::after,
+    h2::after,
+    h3::after,
+    h4::after,
+    h5::after,
+    h6::after {
+        content: "";
+        display: block;
+        height: var(--keep-with-next);
+        margin-bottom: calc(-1 * var(--keep-with-next));
+    }
+
+    /* Reserve more room where the next block needs it: a heading, the first rows of a table or
+       code block, or an image, figure or display formula, which cannot split at all. */
+    :is(h1, h2, h3, h4, h5, h6):has(+ pre, + table, + .code-line:empty + table) {
+        --keep-with-next: 5.25rem;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6):has(+ :is(h1, h2, h3, h4, h5, h6)) {
+        --keep-with-next: 7.5rem;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6):has(+ p > img, + figure, + .code-line:empty + figure, + p.katex-block) {
+        --keep-with-next: 14rem;
+    }
+
+    /* The h2 rule moves onto the reserve block so it stays directly under the heading text. */
+    h2 {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    h2::after {
+        margin-top: 0.3rem;
+        border-top: 1px solid var(--border-color-15);
+    }
+
+    /*
+     * Chromium can also break inside a code block's bottom padding, leaving an empty strip of
+     * the block on the next page. An extra blank line replaces that padding; widows then keeps
+     * it on the same page as the last line of code.
+     */
+    pre:not(.hljs):has(> code),
+    pre.hljs:has(> code) {
+        padding-bottom: 0;
+    }
+
+    /* The converter's own parser wraps highlighted code in a div; the line must sit inside it. */
+    pre > code:not(:has(> div))::after,
+    pre > code > div:last-child::after {
+        content: "\200b";
+    }
+
+    /* One code line (1.6em) less the 0.85rem padding it replaces. */
+    pre > code {
+        margin-bottom: calc(0.85rem - 1.6em);
+    }
+}
